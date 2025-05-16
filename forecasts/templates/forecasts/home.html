@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Weather App</title></head>
+<body>
+  <h1>Real-Time Weather</h1>
+
+  <form method="get">
+    <input name="city" placeholder="Enter city" value="{{ weather.city|default:'' }}">
+    <button type="submit">Lookup</button>
+  </form>
+
+  {% if weather %}
+    <p>{{ weather.city }}: {{ weather.temp }}°C, {{ weather.desc }}</p>
+  {% elif error %}
+    <p>Error: {{ error }}</p>
+  {% endif %}
+
+  <hr>
+  <h2>Saved Forecasts</h2>
+  <ul>
+    {% for f in forecasts %}
+      <li>{{ f.date }} – {{ f.city }}: {{ f.temperature_c }}°C, {{ f.condition }}</li>
+    {% empty %}
+      <li>No forecasts saved.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
